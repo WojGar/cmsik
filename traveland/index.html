@@ -33,6 +33,9 @@
     <!--====== Style CSS ======-->
     <link rel="stylesheet" href="assets/css/style.css">
     
+    <!--====== Inner Page Components CSS ======-->
+    <link rel="stylesheet" href="assets/css/pages.css">
+
 </head>
 
 <body>
@@ -84,22 +87,22 @@
                                         <a class="page-scroll" href="#home">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#about">About</a>
+                                        <a href="about.html">About</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#packges">Packges</a>
+                                        <a href="packages.html">Packages</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#services">Services</a>
+                                        <a href="services.html">Services</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#gallery">Gallery</a>
+                                        <a href="gallery.html">Gallery</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#blog">Blog</a>
+                                        <a href="blog.html">Blog</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="page-scroll" href="#contact">Contact</a>
+                                        <a href="contact.html">Contact</a>
                                     </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
@@ -117,7 +120,7 @@
                             <div class="slider_content">
                                 <h2 class="slider_title wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.2s">Explore The World with<span> TraveLand</span></h2>
                                 <p class="wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.5s">Lorem ipsum dolor amet, consetetur sadipscing elitr sed diam nonumy eirmod tempor invidun dolore.</p>
-                                <a href="javascript:void(0)" class="main-btn wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.8s">Book Now</a>
+                                <a href="contact.html" class="main-btn wow fadeInLeftBig" data-wow-duration="1.3s" data-wow-delay="0.8s">Book Now</a>
                             </div> <!-- slider content -->
                         </div>
                     </div> <!-- row -->
@@ -141,7 +144,7 @@
                                 <h3 class="title">About Us <br> TraveLand in <span>Numbers</span></h3>
                                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed dianum eirmod tempor invidunt ut labore et dolore magna aliqyam era sed diam voluptua. At vero eos et accusam etjusto duo dolres etea reb. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.</p>
                             </div> <!-- section title -->
-                            <a href="javascript:void(0)" class="main-btn">Read More</a>
+                            <a href="about.html" class="main-btn">Read More</a>
                         </div> <!-- about content -->
                         <div class="about_counter d-flex flex-wrap">
                             <div class="single_counter counter_1 d-flex justify-content-center align-items-center wow fadeInUpBig" data-wow-duration="1.3s" data-wow-delay="0.2s">
@@ -183,14 +186,16 @@
     <!--====== DESTINATION PART START ======-->
 
     <section id="packges" class="destination_area pt-130 pb-130">
-
-                    <div class="section_title text-center pb-25">
-                        <h3 class="title">You are using free lite version</h3>
-                        <p>Please, download full version of the template to get all pages, features and permission to remove footer credits</p></br>
-                        <a href="https://themewagon.com/themes/traveland" target="_blank" rel="nofollow" class="main-btn">Download Now</a>
-
-                    </div> <!-- section title -->
-
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6"><div class="section_title text-center"><h3 class="title">Popular <span>Packages</span></h3><p>Hand-picked ideas for your next escape.</p></div></div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mt-30"><div class="package_card"><img src="assets/images/hero-area.jpg" alt="European Escape"><div class="package_card_body"><h4>European Escape</h4><p>7 days of cities, culture and local flavours.</p><a class="more" href="package-details.html">View details</a></div></div></div>
+                <div class="col-lg-4 col-md-6 mt-30"><div class="package_card"><img src="assets/images/about_image.jpg" alt="Island Discovery"><div class="package_card_body"><h4>Island Discovery</h4><p>10 days of slow mornings and turquoise water.</p><a class="more" href="packages.html">View packages</a></div></div></div>
+                <div class="col-lg-4 col-md-6 mt-30"><div class="package_card"><img src="assets/images/blog-1.jpg" alt="City Lights"><div class="package_card_body"><h4>City Lights</h4><p>A five-day cultural break made easy.</p><a class="more" href="packages.html">View packages</a></div></div></div>
+            </div>
+        </div>
     </section>
 
     <!--====== DESTINATION PART ENDS ======-->
@@ -261,6 +266,7 @@
     <!--====== GALLERY PART START ======-->
 
     <section id="gallery" class="gallery_area pt-120 pb-130">
+        <div class="container"><div class="section_title text-center"><h3 class="title">Travel <span>Gallery</span></h3><p>A glimpse of the places and moments waiting for you.</p></div><div class="row"><div class="col-md-4 mt-30"><div class="gallery_item"><img src="assets/images/hero-area.jpg" alt="Travel destination"></div></div><div class="col-md-4 mt-30"><div class="gallery_item"><img src="assets/images/blog-2.jpg" alt="Travel experience"></div></div><div class="col-md-4 mt-30"><div class="gallery_item"><img src="assets/images/blog-3.jpg" alt="City travel"></div></div></div><div class="text-center mt-30"><a class="main-btn" href="gallery.html">See full gallery</a></div></div>
     </section>
 
     <!--====== GALLERY PART ENDS ======-->
@@ -268,15 +274,6 @@
     <!--====== TEAM PART START ======-->
 
     <section id="team" class="team_area pt-120 pb-130">
-
-              
-                    <div class="section_title text-center pb-25">
-                        <h3 class="title">You are using free lite version</h3>
-                        <p>Please, download full version of the template to get all pages, features and permission to remove footer credits</p></br>
-                        <a href="https://themewagon.com/themes/traveland" target="_blank" rel="nofollow" class="main-btn">Download Now</a>
-
-                    </div> <!-- section title -->
-
 
     </section>
 
@@ -314,7 +311,7 @@
                                     <li>14 June 2023</li>
                                 </ul>
                             </div>
-                            <h4 class="blog_title"><a href="javascript:void(0)">Tonumy eirmod tempor invidunt ut labore et dolore magn aaliq yam erat, sed diam voluptua.</a></h4>
+                            <h4 class="blog_title"><a href="blog-details.html">How to plan a trip that feels like you</a></h4>
                             <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magn aaliq yam erat, sed diam voluptua. At vero eos et accusam et justo dolores  ea rebum Stet clita kasd gubergren sea.</p>
                         </div>
                     </div> <!-- single blog -->
@@ -325,9 +322,9 @@
                             <img src="assets/images/blog-2.jpg" alt="blog">
                         </div>
                         <div class="blog_content blog_content_2 media-body">
-                            <h4 class="blog_title"><a href="javascript:void(0)">Tonumy eirmod temporinvi unt ut labore et dolore</a></h4>
+                            <h4 class="blog_title"><a href="blog-details.html">The case for travelling a little slower</a></h4>
                             <p>Lorem ipsum dolor sit ametcon setetur sadipscing elitr, sed diam nonumy eirmod tempor</p>
-                            <a href="javascript:void(0)" class="more">Read More</a>
+                            <a href="blog-details.html" class="more">Read More</a>
                         </div>
                     </div> <!-- single blog -->
                     
@@ -336,9 +333,9 @@
                             <img src="assets/images/blog-3.jpg" alt="blog">
                         </div>
                         <div class="blog_content blog_content_2 media-body">
-                            <h4 class="blog_title"><a href="javascript:void(0)">Tonumy eirmod temporinvi unt ut labore et dolore</a></h4>
+                            <h4 class="blog_title"><a href="blog-details.html">Five simple ways to travel lighter</a></h4>
                             <p>Lorem ipsum dolor sit ametcon setetur sadipscing elitr, sed diam nonumy eirmod tempor</p>
-                            <a href="javascript:void(0)" class="more">Read More</a>
+                            <a href="blog-details.html" class="more">Read More</a>
                         </div>
                     </div> <!-- single blog -->
                 </div>
@@ -361,7 +358,7 @@
                 </div>
             </div> <!-- row -->
             <div class="contact_form">
-                <form action="assets/contact.php" method="POST" id="contact-form">
+                <form action="contact.html" method="POST" id="contact-form">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="single_form">
@@ -432,11 +429,11 @@
                             <div class="footer_link mt-45">
                                 <h4 class="footer_title">Quick Link</h4>
                                 <ul class="link">
-                                    <li><a href="javascript:void(0)">Home</a></li>
-                                    <li><a href="javascript:void(0)">About</a></li>
-                                    <li><a href="javascript:void(0)">Trip Pacakge</a></li>
-                                    <li><a href="javascript:void(0)">Services</a></li>
-                                    <li><a href="javascript:void(0)">Gallery</a></li>
+                                    <li><a href="index.html">Home</a></li>
+                                    <li><a href="about.html">About</a></li>
+                                    <li><a href="packages.html">Trip Packages</a></li>
+                                    <li><a href="services.html">Services</a></li>
+                                    <li><a href="gallery.html">Gallery</a></li>
                                 </ul>
                             </div> <!-- footer link -->
                             <div class="footer_link mt-45">
