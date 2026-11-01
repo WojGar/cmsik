@@ -1,0 +1,73 @@
+<%
+  // Shared client footer — used by all landing pages.
+  // Available vars: menu, settings.
+%>
+  <footer class="footer_area">
+    <div class="footer_widget pt-80 pb-80">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer_about mt-30">
+              <a href="/"><img src="/<%= settings.logo_url || 'traveland/assets/images/logo.svg' %>" alt="<%= settings.site_name || 'TraveLand' %>"></a>
+              <p class="mt-20"><%- settings.footer_text || '' %></p>
+              <ul class="social">
+                <% if (settings.social_facebook)  { %><li><a class="social_1" href="<%= settings.social_facebook %>" target="_blank" rel="noopener"><i class="lni lni-facebook-filled"></i></a></li><% } %>
+                <% if (settings.social_twitter)   { %><li><a class="social_2" href="<%= settings.social_twitter %>"  target="_blank" rel="noopener"><i class="lni lni-twitter-original"></i></a></li><% } %>
+                <% if (settings.social_instagram) { %><li><a class="social_3" href="<%= settings.social_instagram %>" target="_blank" rel="noopener"><i class="lni lni-instagram-original"></i></a></li><% } %>
+                <% if (settings.social_youtube)   { %><li><a class="social_4" href="<%= settings.social_youtube %>"   target="_blank" rel="noopener"><i class="lni lni-youtube"></i></a></li><% } %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer_link mt-30">
+              <h5 class="footer_title">Sekcje</h5>
+              <ul class="link">
+                <% menu.forEach(function(item) { %>
+                  <li>
+                    <% if (item.target_section === 'home') { %>
+                      <a href="/"><%= item.label %></a>
+                    <% } else { %>
+                      <a href="/<%= item.target_section %>"><%= item.label %></a>
+                    <% } %>
+                  </li>
+                <% }); %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer_subscribe mt-30">
+              <h5 class="footer_title">Newsletter</h5>
+              <p>Zapisz się, aby otrzymywać pomysły na podróże.</p>
+              <form action="/newsletter" method="post" class="subscribe_form mt-15">
+                <input type="hidden" name="source" value="/">
+                <input type="email" name="email" placeholder="Twój e-mail" required>
+                <button type="submit"><i class="lni lni-arrow-right"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer_copyright text-center pt-30 pb-10">
+        <p class="small text-muted">
+          <%= settings.footer_copyright || '' %>
+        </p>
+        <p class="small">
+          <a href="/p/privacy-policy">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top"><i class="lni lni-arrow-up"></i></a>
+
+  <script src="/traveland/assets/js/vendor/jquery-1.12.4.min.js"></script>
+  <script src="/traveland/assets/js/popper.min.js"></script>
+  <script src="/traveland/assets/js/bootstrap.4.5.2.min.js"></script>
+  <script src="/traveland/assets/js/waypoints.min.js"></script>
+  <script src="/traveland/assets/js/jquery.counterup.min.js"></script>
+  <script src="/traveland/assets/js/jquery.easing.min.js"></script>
+  <script src="/traveland/assets/js/jquery.nice-select.min.js"></script>
+  <script src="/traveland/assets/js/wow.min.js"></script>
+  <script src="/traveland/assets/js/main.js"></script>
+</body>
+</html>

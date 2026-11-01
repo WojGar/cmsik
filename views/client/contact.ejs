@@ -1,0 +1,112 @@
+<% let heroTitle = (c.contact_lp_hero_title && c.contact_lp_hero_title.text) || 'Get in touch'; %>
+<% let heroSubtitle = (c.contact_lp_hero_subtitle && c.contact_lp_hero_subtitle.text) || ''; %>
+<%- include('partials/_header', { heroTitle, heroSubtitle, active: 'contact' }) %>
+
+<!-- ===== Contact info cards ===== -->
+<section class="lp_section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-3">
+        <div class="contact_info_card">
+          <i class="lni lni-map-marker"></i>
+          <h5>Adres</h5>
+          <p><%= ci.address || '—' %></p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="contact_info_card">
+          <i class="lni lni-phone"></i>
+          <h5>Telefon</h5>
+          <p><% if (ci.phone) { %><a href="tel:<%= ci.phone %>"><%= ci.phone %></a><% } else { %>—<% } %></p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="contact_info_card">
+          <i class="lni lni-envelope"></i>
+          <h5>E-mail</h5>
+          <p><% if (ci.email) { %><a href="mailto:<%= ci.email %>"><%= ci.email %></a><% } else { %>—<% } %></p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="contact_info_card">
+          <i class="lni lni-clock"></i>
+          <h5>Godziny</h5>
+          <p><%= ci.hours_week || '' %></p>
+          <% if (ci.hours_weekend) { %><p class="small text-muted"><%= ci.hours_weekend %></p><% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Form + map ===== -->
+<section class="lp_section bg_light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-7">
+        <div class="section_title">
+          <h3 class="title">Napisz do nas</h3>
+          <p class="text-muted">Wypełnij formularz, a my odpowiemy w ciągu 24 godzin.</p>
+        </div>
+
+        <form action="/contact" method="post" class="contact_form">
+          <input type="hidden" name="source" value="contact">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="single_form mt-30">
+                <input type="text" name="name" placeholder="Imię i nazwisko" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="single_form mt-30">
+                <input type="tel" name="phone" placeholder="Telefon">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="single_form mt-30">
+                <input type="email" name="email" placeholder="E-mail" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="single_form mt-30">
+                <select name="trip" class="wide">
+                  <option value="" selected>Wybierz wycieczkę</option>
+                  <option value="city">City break</option>
+                  <option value="beach">Beach holiday</option>
+                  <option value="mountain">Mountain trip</option>
+                  <option value="custom">Custom plan</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="single_form mt-30">
+                <textarea name="body" rows="6" placeholder="Wiadomość" required></textarea>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="single_form mt-30">
+                <button type="submit" class="main-btn">Wyślij wiadomość</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="col-lg-5 mt-5 mt-lg-0">
+        <div class="section_title">
+          <h3 class="title">Znajdź nas</h3>
+          <p class="text-muted"><%= ci.address || '' %></p>
+        </div>
+        <% if (ci.map_embed_url) { %>
+          <div class="contact_map">
+            <iframe src="<%= ci.map_embed_url %>" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        <% } else { %>
+          <p class="text-muted">Mapa nie jest skonfigurowana.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/_footer') %>

@@ -1,0 +1,65 @@
+<% let heroTitle = post.title; %>
+<% let heroSubtitle = ''; %>
+<%- include('partials/_header', { heroTitle, heroSubtitle, active: 'blog' }) %>
+
+<section class="lp_section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <article>
+          <div class="article_meta">
+            <span><i class="lni lni-user"></i> <%= post.author %></span>
+            <span><i class="lni lni-calendar"></i> <%= formatDate(post.published_at) %></span>
+          </div>
+
+          <% if (post.image) { %>
+            <div class="article_hero">
+              <img src="/<%= post.image %>" alt="<%= post.title %>">
+            </div>
+          <% } %>
+
+          <div class="article_body">
+            <% post.body.split('\n').filter(s => s.trim()).forEach(p => { %>
+              <p><%- p %></p>
+            <% }); %>
+          </div>
+
+          <div class="back_link">
+            <a href="/blog"><i class="lni lni-arrow-left"></i> Wróć do wszystkich wpisów</a>
+          </div>
+        </article>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <aside class="blog_sidebar">
+          <% if (recent.length) { %>
+            <div class="sidebar_block">
+              <h5>Inne wpisy</h5>
+              <% recent.forEach(function(p) { %>
+                <div class="recent_post">
+                  <a href="/post/<%= p.id %>"><%= p.title %></a>
+                  <div class="date"><%= formatDate(p.published_at) %></div>
+                </div>
+              <% }); %>
+            </div>
+          <% } %>
+
+          <div class="sidebar_block">
+            <h5>Newsletter</h5>
+            <p class="small text-muted mb-3">Zapisz się, aby otrzymywać pomysły na podróże.</p>
+            <form action="/newsletter" method="post">
+              <input type="hidden" name="source" value="/post/<%= post.id %>">
+              <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="Twój e-mail" required>
+              </div>
+              <button type="submit" class="main-btn w-100">Zapisz się</button>
+            </form>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/_footer') %>

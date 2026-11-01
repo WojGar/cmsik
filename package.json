@@ -1,0 +1,37 @@
+{
+  "name": "cmsik",
+  "version": "1.0.0",
+  "description": "CMS for a single-page travel-agency website (TraveLand client + Tabler admin) built with Node.js, Express and SQLite.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "init-db": "node scripts/init-db.js",
+    "seed": "node scripts/seed.js"
+  },
+  "keywords": [
+    "cms",
+    "express",
+    "sqlite",
+    "traveland",
+    "tabler"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "better-sqlite3": "^13.0.3",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-session": "^1.18.0",
+    "multer": "^2.0.2"
+  },
+  "overrides": {
+    "minimatch": "^11.0.1"
+  }
+}

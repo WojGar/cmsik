@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %> – CMSik</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+</head>
+<body class="d-flex align-items-center py-5" style="background:#1f2933;min-height:100vh">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6 text-center text-white">
+        <h1 class="display-1 fw-bold mb-0"><%= status || 500 %></h1>
+        <p class="lead mb-4"><%= message || 'Wystąpił błąd.' %></p>
+        <a href="/" class="btn btn-primary">Wróć na stronę główną</a>
+        <a href="/admin" class="btn btn-outline-light ms-2">Panel administratora</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

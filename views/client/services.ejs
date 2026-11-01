@@ -1,0 +1,83 @@
+<% let heroTitle = (c.services_lp_hero_title && c.services_lp_hero_title.text) || 'Our services'; %>
+<% let heroSubtitle = (c.services_lp_hero_subtitle && c.services_lp_hero_subtitle.text) || ''; %>
+<%- include('partials/_header', { heroTitle, heroSubtitle, active: 'services' }) %>
+
+<!-- ===== Intro + service list ===== -->
+<section class="lp_section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="section_title text-center pb-30">
+          <h5 class="sub_title">Services</h5>
+          <h3 class="title">What we can <span>do for you</span></h3>
+          <p><%- (c.services_lp_intro && c.services_lp_intro.text) || '' %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <% if (services.length) { %>
+          <% services.forEach(function(s, i) { %>
+            <div class="service_detail">
+              <div class="service_icon_wrap">
+                <i class="<%= s.icon || 'lni lni-bulb' %>"></i>
+              </div>
+              <div class="service_body">
+                <h4><%= s.label %></h4>
+                <p><%- s.text %></p>
+              </div>
+              <% if (s.image_url) { %>
+                <div class="service_image">
+                  <img src="/<%= s.image_url %>" alt="<%= s.label %>">
+                </div>
+              <% } %>
+            </div>
+          <% }); %>
+        <% } else { %>
+          <p class="text-center text-muted py-5">Brak usług. Dodaj je w panelu administratora.</p>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Process steps — dynamic list ===== -->
+<% if (steps.length) { %>
+<section class="lp_section bg_light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="section_title text-center pb-30">
+          <h5 class="sub_title">Proces</h5>
+          <h3 class="title"><%- (c.services_lp_process_title && c.services_lp_process_title.text) || 'How we work together' %></h3>
+        </div>
+      </div>
+    </div>
+    <div class="row process_steps">
+      <% steps.forEach(function(st, i) { %>
+        <div class="col-lg-3 col-md-6">
+          <div class="process_step mt-30 wow fadeInUp" data-wow-delay="0.<%= i+2 %>s">
+            <div class="step_number"><%= i + 1 %></div>
+            <h5><%= st.label %></h5>
+            <p><%- st.text %></p>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ===== CTA ===== -->
+<section class="lp_section">
+  <div class="container">
+    <div class="text-center">
+      <h3 class="mb-3">Chcesz zacząć?</h3>
+      <p class="text-muted mb-4">Napisz do nas — odpowiemy w ciągu 24 godzin z pierwszymi pomysłami.</p>
+      <a href="/contact" class="main-btn">Wyślij zapytanie</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/_footer') %>

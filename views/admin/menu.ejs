@@ -1,0 +1,156 @@
+<%- include('partials/_top') %>
+
+<div class="page-header d-print-none mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title"><i class="ti ti-menu-2 me-2"></i> Menu nawigacji</h2>
+      <p class="text-muted">Dodawaj, edytuj, ukrywaj i zmieniaj kolejność zakładek. Przeciągnij i upuść, aby zmienić kolejność.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-7">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title"><i class="ti ti-list me-2"></i> Zakładki menu</h3>
+        <div class="card-actions">
+          <span class="badge bg-muted text-muted"><span id="menuCount"><%= items.length %></span> pozycji</span>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush" id="menuList">
+        <% items.forEach(function(item) { %>
+          <li class="list-group-item menu-item" data-id="<%= item.id %>">
+            <div class="d-flex align-items-center">
+              <span class="drag-handle me-3"><i class="ti ti-grip-vertical"></i></span>
+              <div class="flex-fill">
+                <div class="d-flex align-items-center mb-1">
+                  <strong class="me-2"><%= item.label %></strong>
+                  <% if (!item.is_visible) { %><span class="badge bg-warning">ukryta</span><% } %>
+                  <span class="badge bg-light text-muted ms-2">→ #<%= item.target_section %></span>
+                </div>
+                <form action="/admin/menu/<%= item.id %>" method="post" class="row g-2 align-items-end mt-1">
+                  <div class="col-md-5">
+                    <label class="form-label small mb-0">Nazwa</label>
+                    <input type="text" name="label" class="form-control form-control-sm" value="<%= item.label %>" required>
+                  </div>
+                  <div class="col-md-5">
+                    <label class="form-label small mb-0">Sekcja docelowa</label>
+                    <select name="target_section" class="form-select form-select-sm">
+                      <% sections.forEach(function(s) { %>
+                        <option value="<%= s.value %>" <%= s.value === item.target_section ? 'selected' : '' %>><%= s.label %></option>
+                      <% }); %>
+                    </select>
+                  </div>
+                  <div class="col-md-2">
+                    <button type="submit" class="btn btn-sm btn-outline-primary w-100"><i class="ti ti-check"></i></button>
+                  </div>
+                </form>
+              </div>
+              <div class="ms-2 d-flex flex-column">
+                <form action="/admin/menu/<%= item.id %>/toggle" method="post">
+                  <button type="submit" class="btn btn-sm <%= item.is_visible ? 'btn-outline-success' : 'btn-outline-secondary' %> mb-1"
+                          title="<%= item.is_visible ? 'Ukryj' : 'Pokaż' %>">
+                    <i class="ti ti-<%= item.is_visible ? 'eye' : 'eye-off' %>"></i>
+                  </button>
+                </form>
+                <form action="/admin/menu/<%= item.id %>/delete" method="post"
+                      onsubmit="return confirm('Usunąć zakładkę „<%= item.label.replace(/'/g,'') %>”?\nUkryj zamiast usuwać, jeśli chcesz zachować pozycję.')">
+                  <button type="submit" class="btn btn-sm btn-outline-danger"><i class="ti ti-trash"></i></button>
+                </form>
+              </div>
+            </div>
+          </li>
+        <% }); %>
+        <% if (!items.length) { %>
+          <li class="list-group-item text-center text-muted py-4">Brak zakładek. Dodaj pierwszą z prawej strony.</li>
+        <% } %>
+      </ul>
+      <div class="card-footer text-muted small">
+        <i class="ti ti-info-circle me-1"></i>
+        Zmiany kolejności są zapisywane automatycznie. Każda zakładka prowadzi do wybranej sekcji strony głównej.
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-plus me-2"></i> Nowa zakładka</h3></div>
+      <div class="card-body">
+        <form action="/admin/menu/new" method="post">
+          <div class="mb-3">
+            <label class="form-label">Nazwa zakładki</label>
+            <input type="text" name="label" class="form-control" placeholder="np. Home" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Sekcja docelowa</label>
+            <select name="target_section" class="form-select">
+              <% sections.forEach(function(s) { %>
+                <option value="<%= s.value %>"><%= s.label %></option>
+              <% }); %>
+            </select>
+            <small class="form-hint text-muted">Sekcja, do której przewinie się strona po kliknięciu zakładki.</small>
+          </div>
+          <button type="submit" class="btn btn-primary w-100"><i class="ti ti-plus me-1"></i> Dodaj zakładkę</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt-3">
+      <div class="card-header"><h3 class="card-title"><i class="ti ti-info-circle me-2"></i> Jak to działa?</h3></div>
+      <div class="card-body small text-muted">
+        <ol class="mb-0">
+          <li>Dodaj zakładkę i przypisz ją do jednej z sekcji strony głównej.</li>
+          <li>Przeciągnij i upuść element listy, aby zmienić jego kolejność.</li>
+          <li>Ukryj zakładkę ikoną <i class="ti ti-eye"></i>, jeśli chcesz ją tymczasowo schować bez usuwania.</li>
+          <li>Edytuj nazwę i sekcję docelową w linii, po czym kliknij <i class="ti ti-check"></i>.</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/_bottom') %>
+
+<script>
+(function () {
+  const list = document.getElementById('menuList');
+  if (!list) return;
+  let dragging = null;
+
+  list.querySelectorAll('.menu-item').forEach(li => {
+    li.setAttribute('draggable', 'true');
+
+    li.addEventListener('dragstart', e => {
+      dragging = li;
+      li.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    li.addEventListener('dragend', () => {
+      li.classList.remove('dragging');
+      list.querySelectorAll('.drag-over').forEach(x => x.classList.remove('drag-over'));
+      saveOrder();
+    });
+
+    li.addEventListener('dragover', e => {
+      e.preventDefault();
+      if (!dragging || dragging === li) return;
+      const rect = li.getBoundingClientRect();
+      const after = (e.clientY - rect.top) > rect.height / 2;
+      list.insertBefore(dragging, after ? li.nextSibling : li);
+    });
+  });
+
+  function saveOrder() {
+    const order = Array.from(list.querySelectorAll('.menu-item')).map(el => Number(el.dataset.id));
+    fetch('/admin/api/menu/reorder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ order })
+    }).then(r => r.json()).then(data => {
+      if (!data.ok) console.error('reorder failed', data);
+    }).catch(err => console.error(err));
+  }
+})();
+</script>

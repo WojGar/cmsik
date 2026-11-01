@@ -1,0 +1,87 @@
+<%- include('partials/_top') %>
+
+<div class="page-header d-print-none mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title">
+        <i class="ti ti-article me-2"></i><%= post ? 'Edycja wpisu' : 'Nowy wpis' %>
+      </h2>
+    </div>
+    <div class="col-auto">
+      <a href="/admin/posts" class="btn btn-outline-secondary"><i class="ti ti-arrow-left me-1"></i> Wróć</a>
+    </div>
+  </div>
+</div>
+
+<% if (errors && errors.length) { %>
+  <div class="alert alert-danger">
+    <i class="ti ti-alert-circle me-2"></i>
+    <ul class="mb-0"><% errors.forEach(e => { %><li><%= e %></li><% }); %></ul>
+  </div>
+<% } %>
+
+<form action="<%= post ? '/admin/posts/' + post.id + '/edit' : '/admin/posts/new' %>" method="post" enctype="multipart/form-data">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label">Tytuł <span class="text-danger">*</span></label>
+            <input type="text" name="title" class="form-control" value="<%= post ? post.title : '' %>" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Treść <span class="text-danger">*</span></label>
+            <textarea name="body" class="form-control" rows="14" required><%= post ? post.body : '' %></textarea>
+            <small class="form-hint text-muted">Akapity oddziel pustą linią. Pierwszy akapit jest pokazywany jako zajawka na stronie głównej.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-settings me-2"></i> Właściwości</h3></div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label">Autor <span class="text-danger">*</span></label>
+            <input type="text" name="author" class="form-control" value="<%= post ? post.author : (currentUser && currentUser.name) || '' %>" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Data publikacji</label>
+            <input type="datetime-local" name="published_at" class="form-control"
+              value="<%= post && post.published_at ? post.published_at.replace(' ','T').slice(0,16) : '' %>">
+            <small class="form-hint text-muted">Pusta = data utworzenia.</small>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select">
+              <option value="draft"     <%= !post || post.status === 'draft'     ? 'selected' : '' %>>Szkic</option>
+              <option value="published" <%= post && post.status === 'published' ? 'selected' : '' %>>Opublikowany</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-photo me-2"></i> Zdjęcie</h3></div>
+        <div class="card-body">
+          <% if (post && post.image) { %>
+            <img src="/<%= post.image %>" alt="" class="img-fluid rounded mb-2" style="max-height:160px;object-fit:cover;width:100%">
+            <div class="form-check mb-2">
+              <input type="checkbox" name="remove_image" value="1" class="form-check-input" id="rmv">
+              <label for="rmv" class="form-check-label small">Usuń bieżące zdjęcie</label>
+            </div>
+          <% } %>
+          <input type="file" name="image" accept="image/*" class="form-control">
+          <small class="form-hint text-muted">JPG, PNG, GIF, WebP. Maks. 5 MB.</small>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">
+        <i class="ti ti-device-floppy me-1"></i> <%= post ? 'Zapisz zmiany' : 'Utwórz wpis' %>
+      </button>
+    </div>
+  </div>
+</form>
+
+<%- include('partials/_bottom') %>

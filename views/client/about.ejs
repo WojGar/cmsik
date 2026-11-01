@@ -1,0 +1,103 @@
+<% let heroTitle = (c.about_lp_hero_title && c.about_lp_hero_title.text) || 'About TraveLand'; %>
+<% let heroSubtitle = (c.about_lp_hero_subtitle && c.about_lp_hero_subtitle.text) || ''; %>
+<%- include('partials/_header', { heroTitle, heroSubtitle, active: 'about' }) %>
+
+<!-- ===== Intro section (Kim jesteśmy) ===== -->
+<section class="lp_section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6">
+        <div class="section_title">
+          <h5 class="sub_title">About Us</h5>
+          <h3 class="title"><%- (c.about_lp_intro_title && c.about_lp_intro_title.text) || 'We are a team of curious travellers' %></h3>
+        </div>
+        <div class="lp_text">
+          <% const introText = (c.about_lp_intro_text && c.about_lp_intro_text.text) || '';
+             introText.split('\n').filter(s => s.trim()).forEach(p => { %>
+            <p><%- p %></p>
+          <% }); %>
+        </div>
+      </div>
+      <div class="col-lg-6 mt-5 mt-lg-0">
+        <% if (c.about_lp_intro_image && c.about_lp_intro_image.image_url) { %>
+          <img src="/<%= c.about_lp_intro_image.image_url %>" alt="TraveLand team" class="img-fluid rounded shadow-sm">
+        <% } %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Counters (4) ===== -->
+<section class="lp_section bg_light">
+  <div class="container">
+    <div class="row">
+      <% counters.forEach(function(cnt, i) { %>
+        <div class="col-lg-3 col-md-6 col-sm-6 <%= i === 2 || i === 3 ? 'mt-30 mt-sm-0' : '' %>">
+          <div class="single_counter counter_<%= i+1 %> d-flex align-items-center wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.<%= i+2 %>s">
+            <div class="counter_content media-body">
+              <span class="counter"><%= cnt.label %></span>
+              <p><%= cnt.text %></p>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Values (Nasze wartości) — dynamic list ===== -->
+<% if (values.length) { %>
+<section class="lp_section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="section_title text-center pb-30 wow fadeInUp">
+          <h5 class="sub_title">Nasze wartości</h5>
+          <h3 class="title">What guides <span>our work</span></h3>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <% values.forEach(function(v, i) { %>
+        <div class="col-lg-4 col-md-6">
+          <div class="value_card wow fadeInUp" data-wow-delay="0.<%= i+2 %>s">
+            <i class="<%= v.icon || 'lni lni-heart' %>"></i>
+            <h5><%= v.label %></h5>
+            <p><%- v.text %></p>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ===== Team (Zespół) — text block ===== -->
+<section class="lp_section bg_light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="section_title text-center pb-30 wow fadeInUp">
+          <h5 class="sub_title">Zespół</h5>
+          <h3 class="title">The people <span>behind TraveLand</span></h3>
+        </div>
+        <div class="lp_text text-center">
+          <%- (c.about_lp_team_text && c.about_lp_team_text.text) || '' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="lp_section">
+  <div class="container">
+    <div class="text-center">
+      <h3 class="mb-3">Gotne na następną podróż?</h3>
+      <p class="text-muted mb-4">Powiedz nam, gdzie chcesz się wybrać, a my zbudujemy plan dopasowany do Ciebie.</p>
+      <a href="/contact" class="main-btn">Skontaktuj się z nami</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/_footer') %>

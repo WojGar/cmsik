@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %> – CMSik</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/traveland/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+  <style>
+    body { background: linear-gradient(135deg,#1f2933 0%,#2c3e50 60%,#38424d 100%); min-height:100vh; }
+    .login-card { max-width: 480px; margin: 0 auto; border: 0; box-shadow: 0 30px 60px rgba(0,0,0,.25); border-radius: 12px; }
+  </style>
+</head>
+<body class="d-flex align-items-center py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        <div class="card card-body login-card">
+          <h1 class="h3 mb-2"><i class="ti ti-key me-2"></i>Nowe hasło</h1>
+          <p class="text-muted">Ustaw nowe hasło dla swojego konta.</p>
+
+          <% if (typeof error !== 'undefined' && error) { %>
+            <div class="alert alert-danger"><i class="ti ti-alert-circle me-2"></i> <%= error %></div>
+          <% } %>
+
+          <form action="/admin/reset/<%= token %>" method="post">
+            <div class="mb-3">
+              <label class="form-label">Nowe hasło</label>
+              <input type="password" name="password" class="form-control" minlength="6" required autofocus>
+              <small class="form-hint text-muted">Minimum 6 znaków.</small>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Powtórz hasło</label>
+              <input type="password" name="password_confirm" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100"><i class="ti ti-check me-1"></i> Ustaw hasło</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/js/tabler.min.js"></script>
+</body>
+</html>

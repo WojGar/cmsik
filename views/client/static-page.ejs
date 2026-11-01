@@ -1,0 +1,22 @@
+<% let heroTitle = page.title; %>
+<% let heroSubtitle = ''; %>
+<%- include('partials/_header', { heroTitle, heroSubtitle }) %>
+
+<section class="lp_section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="lp_text">
+          <% page.body.split('\n').filter(s => s.trim()).forEach(p => { %>
+            <p><%- p %></p>
+          <% }); %>
+        </div>
+        <div class="back_link">
+          <a href="/"><i class="lni lni-arrow-left"></i> Wróć na stronę główną</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/_footer') %>

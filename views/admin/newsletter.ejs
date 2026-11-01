@@ -1,0 +1,71 @@
+<%- include('partials/_top') %>
+
+<div class="page-header d-print-none mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title"><i class="ti ti-mailbox me-2"></i> Subskrybenci newslettera</h2>
+      <p class="text-muted"><%= subs.length %> zapisanych adresów. System tylko zbiera adresy — wysyłkę realizujesz we własnym narzędziu.</p>
+    </div>
+    <div class="col-auto">
+      <% if (subs.length) { %>
+      <button class="btn btn-outline-primary" id="exportBtn">
+        <i class="ti ti-download me-1"></i> Eksportuj CSV
+      </button>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-vcenter card-table">
+      <thead>
+        <tr>
+          <th style="width:50px">#</th>
+          <th>E-mail</th>
+          <th>Data zapisu</th>
+          <th class="text-end">Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% subs.forEach(function(s, i) { %>
+          <tr>
+            <td class="text-muted"><%= i + 1 %></td>
+            <td><%= s.email %></td>
+            <td class="text-muted"><%= formatDate(s.created_at) %></td>
+            <td class="text-end">
+              <form action="/admin/newsletter/<%= s.id %>/delete" method="post" class="d-inline"
+                    onsubmit="return confirm('Usunąć adres <%= s.email %> z newslettera?')">
+                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="ti ti-trash me-1"></i> Usuń</button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+        <% if (!subs.length) { %>
+          <tr><td colspan="4" class="text-center text-muted py-5">Brak subskrybentów.</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/_bottom') %>
+
+<script>
+document.getElementById('exportBtn')?.addEventListener('click', function () {
+  const rows = document.querySelectorAll('table tbody tr');
+  let csv = 'email,created_at\n';
+  rows.forEach(r => {
+    const cells = r.querySelectorAll('td');
+    if (cells.length >= 3 && cells[1].textContent.trim()) {
+      csv += '"' + cells[1].textContent.trim().replace(/"/g,'""') + '","' + cells[2].textContent.trim() + '"\n';
+    }
+  });
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'newsletter-' + new Date().toISOString().slice(0,10) + '.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+});
+</script>

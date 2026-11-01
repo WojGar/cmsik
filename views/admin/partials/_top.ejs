@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %> – CMSik</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/traveland/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0/dist/css/tabler.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.34.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <style>
+    :root { --tblr-primary: <%= settings.accent_color || '#EEC41E' %>; --cmsik-accent: <%= settings.accent_color || '#EEC41E' %>; }
+    .btn-primary { background-color: var(--cmsik-accent); border-color: var(--cmsik-accent); color: #38424D; }
+    .btn-primary:hover { background-color: #38424D; border-color: #38424D; color: #fff; }
+    .btn-outline-primary { color: var(--cmsik-accent); border-color: var(--cmsik-accent); }
+    .btn-outline-primary:hover { background-color: var(--cmsik-accent); color: #38424D; }
+    .text-primary { color: var(--cmsik-accent) !important; }
+    .nav-link.active { color: var(--cmsik-accent) !important; }
+    .navbar-vertical .nav-link.active { background: rgba(255,255,255,.06); color: #fff !important; }
+    .navbar-vertical .nav-link.active i { color: var(--cmsik-accent); }
+    a { color: var(--cmsik-accent); }
+  </style>
+</head>
+<body class="layout-fluid">
+  <div class="page">
+
+    <!-- ============== SIDEBAR ============== -->
+    <aside class="navbar navbar-vertical navbar-expand-lg navbar-dark" style="background:#1f2933">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal py-2">
+          <a href="/admin" class="text-decoration-none">
+            <%= settings.site_name || 'TraveLand' %>
+            <span class="text-muted small ms-1">CMS</span>
+          </a>
+        </h1>
+        <div class="collapse navbar-collapse" id="sidebar">
+          <ul class="navbar-nav pt-lg-3 w-100">
+            <li class="nav-item <%= active === 'dashboard' ? 'active' : '' %>"><a class="nav-link" href="/admin"><i class="ti ti-dashboard me-2"></i> Pulpit</a></li>
+            <li class="nav-item <%= active === 'sections' ? 'active' : '' %>"><a class="nav-link" href="/admin/sections"><i class="ti ti-layout-grid me-2"></i> Treść sekcji</a></li>
+            <li class="nav-item <%= active === 'pages' ? 'active' : '' %>"><a class="nav-link" href="/admin/pages"><i class="ti ti-files me-2"></i> Strony (LP)</a></li>
+            <li class="nav-item <%= active === 'posts' ? 'active' : '' %>"><a class="nav-link" href="/admin/posts"><i class="ti ti-article me-2"></i> Wpisy blogowe</a></li>
+            <li class="nav-item <%= active === 'menu' ? 'active' : '' %>"><a class="nav-link" href="/admin/menu"><i class="ti ti-menu-2 me-2"></i> Menu nawigacji</a></li>
+            <li class="nav-item <%= active === 'messages' ? 'active' : '' %>"><a class="nav-link" href="/admin/messages"><i class="ti ti-mail me-2"></i> Wiadomości</a></li>
+            <li class="nav-item <%= active === 'newsletter' ? 'active' : '' %>"><a class="nav-link" href="/admin/newsletter"><i class="ti ti-mailbox me-2"></i> Newsletter</a></li>
+            <li class="nav-item <%= active === 'settings' ? 'active' : '' %>"><a class="nav-link" href="/admin/settings"><i class="ti ti-settings me-2"></i> Ustawienia</a></li>
+            <li class="nav-item <%= active === 'account' ? 'active' : '' %>"><a class="nav-link" href="/admin/account"><i class="ti ti-user me-2"></i> Konto</a></li>
+          </ul>
+          <div class="mt-auto pt-3 pb-3 small text-secondary">
+            <a href="/" target="_blank" class="d-block text-secondary text-decoration-none"><i class="ti ti-external-link me-1"></i> Otwórz stronę</a>
+            <a href="/admin/logout" class="d-block text-secondary text-decoration-none"><i class="ti ti-logout me-1"></i> Wyloguj</a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============== MAIN ============== -->
+    <div class="page-wrapper">
+      <header class="navbar navbar-expand-md d-print-none">
+        <div class="container-xl">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-nav flex-row order-md-last ms-auto">
+            <div class="nav-item dropdown">
+              <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
+                <span class="avatar avatar-sm" style="background:rgba(238,196,30,.18);color:#EEC41E"><i class="ti ti-user"></i></span>
+                <div class="d-none d-xl-block ps-2">
+                  <div><%= (currentUser && currentUser.name) || (currentUser && currentUser.email) || 'Admin' %></div>
+                  <div class="mt-1 small text-muted">Administrator</div>
+                </div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                <a class="dropdown-item" href="/admin/account"><i class="ti ti-settings me-2"></i> Konto</a>
+                <a class="dropdown-item" href="/" target="_blank"><i class="ti ti-external-link me-2"></i> Otwórz stronę</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item text-danger" href="/admin/logout"><i class="ti ti-logout me-2"></i> Wyloguj</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="page-body">
+        <div class="container-xl">
+
+          <% if (flash.success && flash.success.length) { %>
+            <% flash.success.forEach(function(m){ %>
+              <div class="alert alert-success alert-dismissible mb-3" role="alert">
+                <i class="ti ti-check me-2"></i> <%= m %>
+                <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></a>
+              </div>
+            <% }); %>
+          <% } %>
+          <% if (flash.error && flash.error.length) { %>
+            <% flash.error.forEach(function(m){ %>
+              <div class="alert alert-danger alert-dismissible mb-3" role="alert">
+                <i class="ti ti-alert-circle me-2"></i> <%= m %>
+                <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></a>
+              </div>
+            <% }); %>
+          <% } %>
+          <% if (flash.info && flash.info.length) { %>
+            <% flash.info.forEach(function(m){ %>
+              <div class="alert alert-info alert-dismissible mb-3" role="alert">
+                <i class="ti ti-info-circle me-2"></i> <%= m %>
+                <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></a>
+              </div>
+            <% }); %>
+          <% } %>

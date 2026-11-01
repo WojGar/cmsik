@@ -1,0 +1,88 @@
+<%- include('partials/_top') %>
+
+<div class="page-header d-print-none mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title"><i class="ti ti-mail me-2"></i> Wiadomości z formularza kontaktowego</h2>
+      <p class="text-muted"><%= messages.length %> wiadomości. Odpowiedz za pomocą programu pocztowego.</p>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-7">
+    <div class="card">
+      <div class="list-group list-group-flush">
+        <% messages.forEach(function(m) { %>
+          <a href="#msg-<%= m.id %>" class="list-group-item list-group-item-action <%= !m.is_read ? 'list-group-item-warning' : '' %>" data-bs-toggle="list">
+            <div class="d-flex w-100 justify-content-between">
+              <div>
+                <% if (!m.is_read) { %><span class="badge msg-unread me-1">nowa</span><% } %>
+                <strong><%= m.name %></strong>
+                <span class="text-muted small ms-2"><%= m.email %></span>
+              </div>
+              <small class="text-muted"><%= formatDate(m.created_at) %></small>
+            </div>
+            <div class="text-muted text-truncate small"><%= m.body %></div>
+          </a>
+        <% }); %>
+        <% if (!messages.length) { %>
+          <div class="list-group-item text-center text-muted py-5">Brak wiadomości.</div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-5">
+    <div class="tab-content">
+      <% messages.forEach(function(m) { %>
+        <div class="tab-pane fade" id="msg-<%= m.id %>">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h3 class="card-title"><%= m.name %></h3>
+              <small class="text-muted"><%= formatDate(m.created_at) %></small>
+            </div>
+            <div class="card-body">
+              <p class="mb-1"><strong>E-mail:</strong> <a href="mailto:<%= m.email %>"><%= m.email %></a></p>
+              <% if (m.phone) { %><p class="mb-1"><strong>Telefon:</strong> <a href="tel:<%= m.phone %>"><%= m.phone %></a><% } %>
+              <% if (m.trip)  { %><p class="mb-1"><strong>Wycieczka:</strong> <%= m.trip %><% } %>
+              <hr>
+              <p class="mb-0" style="white-space:pre-wrap"><%= m.body %></p>
+            </div>
+            <div class="card-footer d-flex flex-wrap gap-1">
+              <a href="mailto:<%= m.email %>?subject=<%= encodeURIComponent('Odpowiedź: Twoja wiadomość – ' + (settings.site_name || 'TraveLand')) %>&body=<%= encodeURIComponent('Dzień dobry,\n\nOdnosząc się do Twojej wiadomości:\n\n' + m.body + '\n\n') %>"
+                 class="btn btn-primary btn-sm">
+                <i class="ti ti-mail-forward me-1"></i> Odpowiedz
+              </a>
+              <% if (!m.is_read) { %>
+                <form action="/admin/messages/<%= m.id %>/read" method="post" class="d-inline">
+                  <button type="submit" class="btn btn-outline-success btn-sm"><i class="ti ti-check me-1"></i> Oznacz jako przeczytane</button>
+                </form>
+              <% } %>
+              <form action="/admin/messages/<%= m.id %>/delete" method="post" class="d-inline ms-auto"
+                    onsubmit="return confirm('Usunąć wiadomość od <%= m.name.replace(/'/g,'') %>?\nTej operacji nie można cofnąć.')">
+                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="ti ti-trash me-1"></i> Usuń</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% }); %>
+    </div>
+
+    <% if (!messages.length) { %>
+      <div class="card">
+        <div class="card-body text-center text-muted py-5">Wybierz wiadomość z listy po lewej, aby zobaczyć szczegóły.</div>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include('partials/_bottom') %>
+
+<script>
+// Auto-show first message
+document.addEventListener('DOMContentLoaded', function() {
+  const first = document.querySelector('.list-group-item-action');
+  if (first) first.click();
+});
+</script>

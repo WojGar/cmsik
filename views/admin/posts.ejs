@@ -1,0 +1,59 @@
+<%- include('partials/_top') %>
+
+<div class="page-header d-print-none mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title"><i class="ti ti-article me-2"></i> Wpisy blogowe</h2>
+      <p class="text-muted">Dodawaj, edytuj i usuwaj wpisy. Na stronie głównej pokazują się trzy ostatnie opublikowane.</p>
+    </div>
+    <div class="col-auto">
+      <a href="/admin/posts/new" class="btn btn-primary"><i class="ti ti-plus me-1"></i> Nowy wpis</a>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-vcenter card-table">
+      <thead>
+        <tr>
+          <th style="width:80px">Zdjęcie</th>
+          <th>Tytuł</th>
+          <th>Autor</th>
+          <th>Data publikacji</th>
+          <th>Status</th>
+          <th class="text-end">Akcje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% posts.forEach(function(p) { %>
+          <tr>
+            <td>
+              <% if (p.image) { %>
+                <img src="/<%= p.image %>" alt="" style="width:60px;height:40px;object-fit:cover;border-radius:4px">
+              <% } else { %>
+                <div class="bg-light d-flex align-items-center justify-content-center" style="width:60px;height:40px;border-radius:4px"><i class="ti ti-photo text-muted"></i></div>
+              <% } %>
+            </td>
+            <td><a href="/admin/posts/<%= p.id %>/edit"><%= p.title %></a></td>
+            <td class="text-muted"><%= p.author %></td>
+            <td class="text-muted"><%= formatDate(p.published_at) %></td>
+            <td><span class="badge status-<%= p.status %>"><%= p.status === 'published' ? 'Opublikowany' : 'Szkic' %></span></td>
+            <td class="text-end">
+              <a href="/admin/posts/<%= p.id %>/edit" class="btn btn-sm btn-outline-primary"><i class="ti ti-edit"></i></a>
+              <form action="/admin/posts/<%= p.id %>/delete" method="post" class="d-inline"
+                    onsubmit="return confirm('Usunąć wpis „<%= p.title.replace(/'/g,'') %>”?\nTej operacji nie można cofnąć.');">
+                <button type="submit" class="btn btn-sm btn-outline-danger"><i class="ti ti-trash"></i></button>
+              </form>
+            </td>
+          </tr>
+        <% }); %>
+        <% if (!posts.length) { %>
+          <tr><td colspan="6" class="text-center text-muted py-5">Brak wpisów. <a href="/admin/posts/new">Dodaj pierwszy wpis</a>.</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('partials/_bottom') %>

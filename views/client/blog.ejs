@@ -1,0 +1,94 @@
+<% let heroTitle = (c.blog_lp_hero_title && c.blog_lp_hero_title.text) || 'Blog'; %>
+<% let heroSubtitle = (c.blog_lp_hero_subtitle && c.blog_lp_hero_subtitle.text) || ''; %>
+<%- include('partials/_header', { heroTitle, heroSubtitle, active: 'blog' }) %>
+
+<section class="lp_section">
+  <div class="container">
+    <div class="row">
+      <!-- Blog list -->
+      <div class="col-lg-8">
+        <div class="blog_list">
+          <% if (posts.length) { %>
+            <div class="row">
+              <% posts.forEach(function(p, i) { %>
+                <div class="col-md-6">
+                  <div class="single_blog mt-30 wow fadeInUp" data-wow-delay="0.<%= (i % 3) + 1 %>s">
+                    <div class="blog_image">
+                      <a href="/post/<%= p.id %>">
+                        <img src="/<%= p.image || 'traveland/assets/images/blog-1.jpg' %>" alt="<%= p.title %>">
+                      </a>
+                    </div>
+                    <div class="blog_content">
+                      <div class="blog_meta">
+                        <ul>
+                          <li><%= p.author %></li>
+                          <li><%= formatDate(p.published_at) %></li>
+                        </ul>
+                      </div>
+                      <h4 class="blog_title"><a href="/post/<%= p.id %>"><%= p.title %></a></h4>
+                      <p><%- (p.body || '').slice(0, 120) %>…</p>
+                      <a href="/post/<%= p.id %>" class="more">Czytaj więcej <i class="lni lni-arrow-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              <% }); %>
+            </div>
+
+            <!-- Pagination -->
+            <% if (totalPages > 1) { %>
+              <nav>
+                <ul class="pagination">
+                  <li class="page-item <%= page <= 1 ? 'disabled' : '' %>">
+                    <a class="page-link" href="/blog?page=<%= page - 1 %>">&laquo;</a>
+                  </li>
+                  <% for (let i = 1; i <= totalPages; i++) { %>
+                    <li class="page-item <%= i === page ? 'active' : '' %>">
+                      <a class="page-link" href="/blog?page=<%= i %>"><%= i %></a>
+                    </li>
+                  <% } %>
+                  <li class="page-item <%= page >= totalPages ? 'disabled' : '' %>">
+                    <a class="page-link" href="/blog?page=<%= page + 1 %>">&raquo;</a>
+                  </li>
+                </ul>
+              </nav>
+            <% } %>
+          <% } else { %>
+            <p class="text-center text-muted py-5">Brak opublikowanych wpisów.</p>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Sidebar -->
+      <div class="col-lg-4">
+        <aside class="blog_sidebar">
+          <div class="sidebar_block">
+            <h5>Ostatnie wpisy</h5>
+            <% recent.forEach(function(p) { %>
+              <div class="recent_post">
+                <a href="/post/<%= p.id %>"><%= p.title %></a>
+                <div class="date"><%= formatDate(p.published_at) %></div>
+              </div>
+            <% }); %>
+            <% if (!recent.length) { %>
+              <p class="text-muted small mb-0">Brak wpisów.</p>
+            <% } %>
+          </div>
+
+          <div class="sidebar_block">
+            <h5>Newsletter</h5>
+            <p class="small text-muted mb-3">Zapisz się, aby otrzymywać pomysły na podróże.</p>
+            <form action="/newsletter" method="post">
+              <input type="hidden" name="source" value="/blog">
+              <div class="form-group">
+                <input type="email" name="email" class="form-control" placeholder="Twój e-mail" required>
+              </div>
+              <button type="submit" class="main-btn w-100">Zapisz się</button>
+            </form>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/_footer') %>

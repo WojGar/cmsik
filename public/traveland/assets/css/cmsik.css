@@ -1,0 +1,273 @@
+/* =========================================================
+   CMSik — small additions on top of TraveLand style.css
+   =========================================================
+   The original TraveLand index uses a slick slider for the hero
+   and a few classes that this static version does not need.
+   These rules keep the layout consistent and responsive.
+   ========================================================= */
+
+/* Hero: ensure the bg image is covered and centered. */
+.single_slider.bg_cover {
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+/* Section eyebrow / sub-title */
+.section_title .sub_title {
+  font-size: 16px;
+  color: #EEC41E;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+/* About counters: tighter columns on smaller screens */
+.about_counter .single_counter {
+  background: #f9f9f9;
+  padding: 24px 18px;
+  border-radius: 8px;
+  text-align: center;
+  display: block !important;
+}
+.about_counter .single_counter .counter_content { text-align: center; }
+.about_counter .single_counter .counter {
+  font-size: 36px;
+  font-weight: 700;
+  color: #38424D;
+  display: block;
+}
+.about_counter .single_counter p { margin-top: 6px; color: #747E88; }
+
+/* Services tiles: subtle card look */
+.single_service {
+  background: #fff;
+  border: 1px solid #eef0f2;
+  border-radius: 8px;
+  padding: 36px 26px;
+  text-align: center;
+  -webkit-transition: all .25s ease;
+  transition: all .25s ease;
+}
+.single_service .services_icon i { font-size: 48px; color: #EEC41E; }
+.single_service .services_content .title { margin: 18px 0 10px; font-size: 20px; }
+.single_service .services_content p { color: #747E88; }
+.single_service:hover { box-shadow: 0 12px 30px rgba(56,66,77,.08); transform: translateY(-3px); }
+
+/* Blog cards */
+.single_blog {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 6px 18px rgba(56,66,77,.06);
+  height: 100%;
+}
+.single_blog .blog_image img { width: 100%; height: 220px; object-fit: cover; }
+.single_blog.featured .blog_image img { height: 320px; }
+.single_blog .blog_content { padding: 22px 22px 28px; }
+.single_blog .blog_meta ul { list-style: none; padding: 0; margin: 0 0 10px; }
+.single_blog .blog_meta ul li { display: inline-block; font-size: 13px; color: #9aa1a8; margin-right: 12px; }
+.single_blog .blog_meta ul li + li::before { content: '·'; margin-right: 12px; color: #cfd3d7; }
+.single_blog .blog_title { font-size: 20px; line-height: 1.3; margin-bottom: 10px; color: #38424D; }
+.single_blog.featured .blog_title { font-size: 24px; }
+.single_blog .blog_content p { color: #747E88; font-size: 15px; line-height: 1.6; }
+
+/* Background helper */
+.bg_light { background: #f7f8fa; }
+
+/* Contact form fields */
+.contact_form .single_form input,
+.contact_form .single_form textarea {
+  width: 100%;
+  border: 1px solid #e2e5e8;
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 15px;
+  color: #38424D;
+  background: #fff;
+}
+.contact_form .single_form input:focus,
+.contact_form .single_form textarea:focus { border-color: #EEC41E; outline: none; }
+.contact_form .single_form textarea { resize: vertical; min-height: 120px; }
+
+/* Footer copyright */
+.footer_copyright { border-top: 1px solid rgba(255,255,255,.06); margin-top: 30px; }
+.footer_copyright p { color: #9aa1a8; }
+
+/* Sticky header dark logo override (the template toggles logo on scroll) */
+.header_navbar.sticky .navbar-brand img { filter: none; }
+
+/* Featured blog tag */
+.single_blog.featured::before {
+  content: 'Najnowszy';
+  position: absolute;
+  top: 16px; left: 16px;
+  background: #EEC41E;
+  color: #38424D;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  z-index: 2;
+}
+.single_blog { position: relative; }
+
+/* nice-select width fix */
+.subscribe_form { display: flex; align-items: center; }
+.subscribe_form input {
+  flex: 1; border: 0; border-radius: 0;
+  padding: 12px 14px; background: #fff;
+  font-size: 14px;
+}
+.subscribe_form button {
+  border: 0; background: #EEC41E; color: #38424D;
+  padding: 12px 18px; cursor: pointer; font-size: 16px;
+}
+.subscribe_form button:hover { background: #38424D; color: #fff; }
+
+/* Active nav link underline tweak */
+.navbar-nav .nav-item.active > a { color: #EEC41E !important; }
+
+/* Smooth scrolling on the whole page */
+html { scroll-behavior: smooth; }
+
+/* Nice spacing for sections on mobile */
+@media (max-width: 767px) {
+  .about_counter .single_counter { margin-bottom: 16px; }
+  .single_blog .blog_image img { height: 180px; }
+}
+
+/* =========================================================
+   Landing pages (About / Services / Blog / Contact / Static)
+   ========================================================= */
+
+/* Page banner — small hero above the content */
+.header_area .page_banner {
+  background: linear-gradient(135deg, #1f2933 0%, #38424d 100%);
+  padding: 90px 0 60px;
+  border-bottom-left-radius: 100px;
+  color: #fff;
+}
+.header_area .page_banner h1 { color: #fff; font-size: 38px; margin-bottom: 8px; }
+.header_area .page_banner .breadcrumb-trail { color: rgba(255,255,255,.7); font-size: 14px; margin: 0; }
+.header_area .page_banner .breadcrumb-trail a { color: #EEC41E; }
+.header_area .page_banner .breadcrumb-trail a:hover { color: #fff; }
+@media (max-width: 767px) {
+  .header_area .page_banner { padding: 60px 0 40px; border-bottom-left-radius: 60px; }
+  .header_area .page_banner h1 { font-size: 28px; }
+}
+
+/* Generic content section spacing for landing pages */
+.lp_section { padding: 80px 0; }
+.lp_section.bg_light { background: #f7f8fa; }
+.lp_section .section_title { margin-bottom: 40px; }
+.lp_section .section_title .sub_title {
+  font-size: 16px; color: #EEC41E; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px;
+}
+.lp_section .section_title .title { font-size: 32px; }
+.lp_section .section_title .title span { color: #EEC41E; }
+
+/* Long-text block on About / Static pages */
+.lp_text { font-size: 16px; line-height: 1.8; color: #747E88; }
+.lp_text p { margin-bottom: 1.2em; }
+.lp_text p:last-child { margin-bottom: 0; }
+
+/* Service detail row on Services LP */
+.service_detail {
+  display: flex; gap: 30px; padding: 32px 0; border-bottom: 1px solid #eef0f2;
+}
+.service_detail:last-child { border-bottom: 0; }
+.service_detail .service_icon_wrap {
+  flex: 0 0 80px; height: 80px; border-radius: 12px;
+  background: rgba(238,196,30,.12); display: flex; align-items: center; justify-content: center;
+}
+.service_detail .service_icon_wrap i { font-size: 38px; color: #EEC41E; }
+.service_detail .service_body { flex: 1; }
+.service_detail .service_body h4 { font-size: 22px; margin-bottom: 10px; color: #38424D; }
+.service_detail .service_body p { color: #747E88; line-height: 1.7; margin: 0; }
+.service_detail .service_image { flex: 0 0 280px; max-width: 280px; }
+.service_detail .service_image img { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
+@media (max-width: 767px) {
+  .service_detail { flex-direction: column; }
+  .service_detail .service_image { max-width: 100%; }
+  .service_detail .service_image img { height: 200px; }
+}
+
+/* Process steps on Services LP */
+.process_steps { counter-reset: step; }
+.process_step {
+  position: relative; padding: 28px 24px 24px; background: #fff;
+  border: 1px solid #eef0f2; border-radius: 10px; height: 100%;
+}
+.process_step .step_number {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #EEC41E; color: #38424D;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 18px; margin-bottom: 16px;
+}
+.process_step h5 { font-size: 18px; color: #38424D; margin-bottom: 8px; }
+.process_step p { color: #747E88; font-size: 14px; line-height: 1.6; margin: 0; }
+
+/* Team member card */
+.team_card { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(56,66,77,.06); height: 100%; }
+.team_card .team_image { height: 240px; overflow: hidden; }
+.team_card .team_image img { width: 100%; height: 100%; object-fit: cover; }
+.team_card .team_body { padding: 22px; }
+.team_card .team_body h5 { font-size: 19px; color: #38424D; margin-bottom: 4px; }
+.team_card .team_body .role { color: #EEC41E; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; display: block; }
+.team_card .team_body p { color: #747E88; font-size: 14px; line-height: 1.6; margin: 0; }
+
+/* Values cards (About LP) */
+.value_card { padding: 30px 24px; background: #fff; border: 1px solid #eef0f2; border-radius: 10px; height: 100%; text-align: center; }
+.value_card i { font-size: 42px; color: #EEC41E; margin-bottom: 16px; display: inline-block; }
+.value_card h5 { font-size: 19px; color: #38424D; margin-bottom: 10px; }
+.value_card p { color: #747E88; font-size: 14px; line-height: 1.6; margin: 0; }
+
+/* Blog list (Blog LP) */
+.blog_list .single_blog { margin-bottom: 30px; }
+.blog_sidebar { padding-left: 24px; }
+@media (max-width: 991px) { .blog_sidebar { padding-left: 0; margin-top: 40px; } }
+.blog_sidebar .sidebar_block { background: #f7f8fa; border-radius: 8px; padding: 24px; margin-bottom: 24px; }
+.blog_sidebar .sidebar_block h5 { font-size: 16px; color: #38424D; margin-bottom: 14px; text-transform: uppercase; letter-spacing: .04em; }
+.blog_sidebar .recent_post { padding: 8px 0; border-bottom: 1px solid #e6e9ec; }
+.blog_sidebar .recent_post:last-child { border-bottom: 0; }
+.blog_sidebar .recent_post a { color: #38424D; font-weight: 500; display: block; font-size: 14px; line-height: 1.4; }
+.blog_sidebar .recent_post a:hover { color: #EEC41E; }
+.blog_sidebar .recent_post .date { color: #9aa1a8; font-size: 12px; }
+
+/* Pagination */
+.pagination { justify-content: center; margin-top: 30px; }
+.pagination .page-item .page-link {
+  color: #38424D; border: 1px solid #e2e5e8; padding: 8px 14px; margin: 0 3px; border-radius: 6px;
+}
+.pagination .page-item.active .page-link { background: #EEC41E; border-color: #EEC41E; color: #38424D; }
+.pagination .page-item.disabled .page-link { color: #cfd3d7; }
+
+/* Contact LP */
+.contact_info_card {
+  background: #fff; border: 1px solid #eef0f2; border-radius: 10px; padding: 28px 24px;
+  text-align: center; height: 100%;
+}
+.contact_info_card i { font-size: 32px; color: #EEC41E; margin-bottom: 14px; display: inline-block; }
+.contact_info_card h5 { font-size: 16px; color: #38424D; margin-bottom: 8px; text-transform: uppercase; letter-spacing: .04em; }
+.contact_info_card p { color: #747E88; font-size: 15px; margin: 0; line-height: 1.5; }
+.contact_info_card a { color: #747E88; }
+.contact_info_card a:hover { color: #EEC41E; }
+.contact_map { border-radius: 10px; overflow: hidden; box-shadow: 0 6px 18px rgba(56,66,77,.06); }
+.contact_map iframe { width: 100%; height: 360px; border: 0; display: block; }
+
+/* Single post */
+.article_meta { color: #9aa1a8; font-size: 14px; margin: 14px 0 24px; }
+.article_meta span + span::before { content: '·'; margin: 0 10px; color: #cfd3d7; }
+.article_body { font-size: 17px; line-height: 1.85; color: #4b5563; }
+.article_body p { margin-bottom: 1.4em; }
+.article_body p:last-child { margin-bottom: 0; }
+.article_body h3 { margin: 1.6em 0 .8em; font-size: 24px; color: #38424D; }
+.article_hero { border-radius: 10px; overflow: hidden; margin-bottom: 30px; }
+.article_hero img { width: 100%; max-height: 420px; object-fit: cover; display: block; }
+.back_link { margin-top: 40px; padding-top: 24px; border-top: 1px solid #eef0f2; }
+.back_link a { color: #EEC41E; font-weight: 500; }
+.back_link a:hover { color: #38424D; }
+

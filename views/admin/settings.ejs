@@ -1,0 +1,130 @@
+<%- include('partials/_top') %>
+
+<div class="page-header d-print-none mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title"><i class="ti ti-settings me-2"></i> Ustawienia serwisu</h2>
+      <p class="text-muted">Nazwa serwisu, logo, stopka, linki social oraz kolor przewodni.</p>
+    </div>
+  </div>
+</div>
+
+<form action="/admin/settings" method="post" enctype="multipart/form-data">
+  <div class="row">
+    <div class="col-lg-8">
+
+      <div class="card mb-3">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-id me-2"></i> Tożsamość serwisu</h3></div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              <label class="form-label">Nazwa serwisu</label>
+              <input type="text" name="site_name" class="form-control" value="<%= s.site_name || '' %>">
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Tagline</label>
+              <input type="text" name="site_tagline" class="form-control" value="<%= s.site_tagline || '' %>">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-photo me-2"></i> Logo</h3></div>
+        <div class="card-body">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <img src="/<%= s.logo_url || 'traveland/assets/images/logo.svg' %>" alt="" style="max-height:48px">
+            <div>
+              <div class="text-muted small">Bieżące logo</div>
+              <code class="small"><%= s.logo_url || 'traveland/assets/images/logo.svg' %></code>
+            </div>
+          </div>
+          <input type="file" name="logo" accept="image/*" class="form-control">
+          <small class="form-hint text-muted">SVG, PNG. Nowe logo zastąpi dotychczasowe. Stare pliki szablonu (<code>logo.svg</code>) pozostają nietknięte.</small>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-layout-bottom me-2"></i> Stopka</h3></div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label">Tekst stopki (o nas)</label>
+            <textarea name="footer_text" class="form-control" rows="2"><%= s.footer_text || '' %></textarea>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Stopka copyright / autorzy szablonu</label>
+            <textarea name="footer_copyright" class="form-control" rows="2"><%= s.footer_copyright || '' %></textarea>
+            <small class="form-hint text-muted">Zgodnie z licencją MIT szablonu TraveLand należy zachować informację o autorach (UIdeck / ThemeWagon).</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-brand me-2"></i> Profile social media</h3></div>
+        <div class="card-body">
+          <div class="row g-2">
+            <div class="col-md-6">
+              <label class="form-label"><i class="ti ti-brand-facebook me-1"></i> Facebook</label>
+              <input type="url" name="social_facebook" class="form-control" value="<%= s.social_facebook || '' %>" placeholder="https://facebook.com/…">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="ti ti-brand-twitter me-1"></i> Twitter / X</label>
+              <input type="url" name="social_twitter" class="form-control" value="<%= s.social_twitter || '' %>" placeholder="https://twitter.com/…">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="ti ti-brand-instagram me-1"></i> Instagram</label>
+              <input type="url" name="social_instagram" class="form-control" value="<%= s.social_instagram || '' %>" placeholder="https://instagram.com/…">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label"><i class="ti ti-brand-youtube me-1"></i> YouTube</label>
+              <input type="url" name="social_youtube" class="form-control" value="<%= s.social_youtube || '' %>" placeholder="https://youtube.com/…">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i> Zapisz ustawienia</button>
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card mb-3">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-palette me-2"></i> Kolor przewodni</h3></div>
+        <div class="card-body">
+          <div class="mb-3">
+            <label class="form-label">Kolor akcentu</label>
+            <input type="color" name="accent_color" class="form-control form-control-color" value="<%= s.accent_color || '#EEC41E' %>" style="height:48px">
+            <input type="text" class="form-control mt-2" id="accentText" value="<%= s.accent_color || '#EEC41E' %>" readonly>
+            <small class="form-hint text-muted">Domyślnie <code>#EEC41E</code> (żółty TraveLand). Kolor wpływa na przyciski, linki, wyróżnienia.</small>
+          </div>
+          <div class="small text-muted">
+            <p class="mb-1"><strong>Podgląd:</strong></p>
+            <div class="d-flex gap-2">
+              <button class="btn btn-primary btn-sm" type="button">Przycisk</button>
+              <a href="#">Link</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header"><h3 class="card-title"><i class="ti ti-info-circle me-2"></i> Informacje</h3></div>
+        <div class="card-body small text-muted">
+          <p class="mb-1"><strong>Engine:</strong> Node.js + Express + SQLite</p>
+          <p class="mb-1"><strong>Szablon klienta:</strong> TraveLand (UIdeck, MIT)</p>
+          <p class="mb-1"><strong>Panel:</strong> Tabler (MIT)</p>
+          <p class="mb-0"><strong>Wersja:</strong> CMSik 1.0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<%- include('partials/_bottom') %>
+
+<script>
+const color = document.querySelector('input[name="accent_color"]');
+const text  = document.getElementById('accentText');
+if (color && text) {
+  color.addEventListener('input', () => text.value = color.value);
+}
+</script>

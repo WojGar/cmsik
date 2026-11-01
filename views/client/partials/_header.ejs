@@ -1,0 +1,105 @@
+<%
+  // Shared client header — used by all landing pages.
+  // Available vars: title, menu, settings, flash, heroTitle, heroSubtitle, active (optional).
+  const activePage = typeof active !== 'undefined' ? active : '';
+%>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="/traveland/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/traveland/assets/css/animate.css">
+  <link rel="stylesheet" href="/traveland/assets/css/nice-select.css">
+  <link rel="stylesheet" href="/traveland/assets/css/LineIcons.2.0.css">
+  <link rel="stylesheet" href="/traveland/assets/css/bootstrap.4.5.2.min.css">
+  <link rel="stylesheet" href="/traveland/assets/css/default.css">
+  <link rel="stylesheet" href="/traveland/assets/css/style.css">
+  <link rel="stylesheet" href="/traveland/assets/css/pages.css">
+  <link rel="stylesheet" href="/traveland/assets/css/cmsik.css">
+  <% if (settings.accent_color && settings.accent_color !== '#EEC41E') { %>
+  <style>
+    :root { --cmsik-accent: <%= settings.accent_color %>; }
+    a, .navbar-nav .nav-item.active > a, .navbar-nav .nav-item:hover > a,
+    .section_title .title span, .slider_content .slider_title span,
+    .single_service .services_content .title, .single_blog .blog_content .blog_title a:hover,
+    .footer_link .link li a:hover, .single_counter span { color: <%= settings.accent_color %> !important; }
+    .main-btn { background-color: <%= settings.accent_color %>; border-color: <%= settings.accent_color %>; }
+    .main-btn:hover { background: #38424D; border-color: #38424D; }
+    .single_service:hover .services_icon i { color: <%= settings.accent_color %>; }
+  </style>
+  <% } %>
+</head>
+<body class="inner_page">
+  <section class="header_area">
+    <div class="header_navbar">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg">
+          <a class="navbar-brand" href="/">
+            <img src="/<%= settings.logo_url || 'traveland/assets/images/logo.svg' %>" alt="<%= settings.site_name || 'TraveLand' %>">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#siteNav">
+            <span class="toggler-icon"></span><span class="toggler-icon"></span><span class="toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse sub-menu-bar" id="siteNav">
+            <ul class="navbar-nav ml-auto">
+              <% menu.forEach(function(item) { %>
+                <li class="nav-item <%= item.target_section === activePage ? 'active' : '' %>">
+                  <% if (item.target_section === 'home') { %>
+                    <a href="/"><%= item.label %></a>
+                  <% } else { %>
+                    <a href="/<%= item.target_section %>"><%= item.label %></a>
+                  <% } %>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Hero / page banner -->
+    <div class="page_banner">
+      <div class="container">
+        <h1><%= heroTitle %></h1>
+        <% if (heroSubtitle) { %><p class="lead text-white-50"><%= heroSubtitle %></p><% } %>
+        <p class="breadcrumb-trail">
+          <a href="/">Home</a>
+          <span class="mx-2">/</span>
+          <span><%= heroTitle %></span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <% if (flash.success && flash.success.length) { %>
+    <div class="container mt-3">
+      <% flash.success.forEach(function(m){ %>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="lni lni-checkmark-circle me-2"></i> <%= m %>
+          <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+  <% if (flash.error && flash.error.length) { %>
+    <div class="container mt-3">
+      <% flash.error.forEach(function(m){ %>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <i class="lni lni-warning me-2"></i> <%= m %>
+          <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>
+  <% if (flash.info && flash.info.length) { %>
+    <div class="container mt-3">
+      <% flash.info.forEach(function(m){ %>
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          <i class="lni lni-information me-2"></i> <%= m %>
+          <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+      <% }); %>
+    </div>
+  <% } %>

@@ -1,0 +1,40 @@
+/* CMSik admin — small helpers on top of Tabler */
+
+/* Sticky page head */
+.page-wrapper > header.navbar { background: #fff; border-bottom: 1px solid rgba(0,0,0,.06); }
+
+/* Sidebar tweaks */
+.navbar-vertical { width: 240px; }
+.navbar-vertical .nav-link { color: rgba(255,255,255,.75); border-radius: 6px; padding: 8px 12px; margin: 2px 0; }
+.navbar-vertical .nav-link:hover { color: #fff; background: rgba(255,255,255,.04); }
+.navbar-vertical .nav-link i { font-size: 18px; vertical-align: middle; }
+
+/* Cards have consistent radius */
+.card { border-radius: 8px; }
+.card-title { font-weight: 600; }
+
+/* Stat cards */
+.stat-card .stat-value { font-size: 28px; font-weight: 700; color: #38424D; }
+.stat-card .stat-label { color: #6c7a89; font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+.stat-card .stat-icon  { font-size: 28px; }
+
+/* Tables */
+.table th { font-weight: 600; color: #38424D; }
+.table td { vertical-align: middle; }
+
+/* Forms: labels tight */
+.form-label { font-weight: 500; margin-bottom: 4px; }
+
+/* Drag handle */
+.drag-handle { cursor: grab; color: #9aa1a8; }
+.drag-handle:active { cursor: grabbing; }
+.menu-item.dragging { opacity: .4; }
+.menu-item.drag-over { border-top: 2px solid #EEC41E; }
+
+/* Status badges */
+.badge.status-published { background: #2fb344; color: #fff; }
+.badge.status-draft     { background: #f59f00; color: #fff; }
+.badge.msg-unread       { background: #EEC41E; color: #38424D; }
+
+/* Featured blog card on the public site uses brand accent */
+.list-group-item.active { background: var(--cmsik-accent); border-color: var(--cmsik-accent); color: #38424D; }

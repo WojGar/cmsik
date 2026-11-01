@@ -1,0 +1,88 @@
+<%- include('partials/_top') %>
+
+<%
+  const find = (key) => c[key] || { id: null, key, text: '' };
+%>
+
+<div class="page-header d-print-none mb-3">
+  <div class="row align-items-center">
+    <div class="col">
+      <h2 class="page-title"><i class="ti ti-mail me-2"></i> Strona Contact (landing page)</h2>
+      <p class="text-muted"><a href="/contact" target="_blank">Podgląd na żywo</a> · URL: <code>/contact</code></p>
+    </div>
+    <div class="col-auto">
+      <a href="/admin/pages" class="btn btn-outline-secondary"><i class="ti ti-arrow-left me-1"></i> Wróć</a>
+    </div>
+  </div>
+</div>
+
+<form action="/admin/pages/contact" method="post">
+  <!-- Hero -->
+  <div class="card mb-3">
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-flag me-2"></i> Hero</h3></div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <label class="form-label">Tytuł hero</label>
+          <input type="text" class="form-control" name="components[<%= find('contact_lp_hero_title').id %>][text]" value="<%= find('contact_lp_hero_title').text %>">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Podtytuł hero</label>
+          <input type="text" class="form-control" name="components[<%= find('contact_lp_hero_subtitle').id %>][text]" value="<%= find('contact_lp_hero_subtitle').text %>">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact info -->
+  <div class="card mb-3">
+    <div class="card-header"><h3 class="card-title"><i class="ti ti-address-book me-2"></i> Dane kontaktowe</h3></div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label">Adres</label>
+          <input type="text" class="form-control" name="address" value="<%= ci.address || '' %>">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Telefon</label>
+          <input type="text" class="form-control" name="phone" value="<%= ci.phone || '' %>">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">E-mail</label>
+          <input type="email" class="form-control" name="email" value="<%= ci.email || '' %>">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Godziny (pon–pt)</label>
+          <input type="text" class="form-control" name="hours_week" value="<%= ci.hours_week || '' %>">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Godziny (sob)</label>
+          <input type="text" class="form-control" name="hours_weekend" value="<%= ci.hours_weekend || '' %>">
+        </div>
+        <div class="col-12">
+          <label class="form-label">URL osadzenia mapy (iframe src)</label>
+          <input type="url" class="form-control" name="map_embed_url" value="<%= ci.map_embed_url || '' %>">
+          <small class="form-hint text-muted">
+            Wejdź na <a href="https://www.openstreetmap.org/export" target="_blank">openstreetmap.org/export</a>,
+            wybierz obszar, kliknij „HTML”, skopiuj wartość atrybutu <code>src</code> iframe i wklej tutaj.
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-bottom bg-white p-3 border-top d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary"><i class="ti ti-device-floppy me-1"></i> Zapisz zmiany</button>
+  </div>
+</form>
+
+<div class="card">
+  <div class="card-body">
+    <p class="mb-0 text-muted">
+      <i class="ti ti-info-circle me-1"></i>
+      Formularz kontaktowy na tej stronie jest identyczny jak na stronie głównej. Wiadomości trafiają do zakładki <a href="/admin/messages">„Wiadomości"</a>.
+    </p>
+  </div>
+</div>
+
+<%- include('partials/_bottom') %>

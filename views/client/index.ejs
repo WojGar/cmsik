@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title><%= settings.site_name || 'TraveLand' %> – <%= settings.site_tagline || 'Tour & Travel Agency' %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="<%= (c.about_text_1 && c.about_text_1.text) || '' %>">
+  <link rel="shortcut icon" href="/traveland/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/traveland/assets/css/animate.css">
+  <link rel="stylesheet" href="/traveland/assets/css/nice-select.css">
+  <link rel="stylesheet" href="/traveland/assets/css/LineIcons.2.0.css">
+  <link rel="stylesheet" href="/traveland/assets/css/bootstrap.4.5.2.min.css">
+  <link rel="stylesheet" href="/traveland/assets/css/default.css">
+  <link rel="stylesheet" href="/traveland/assets/css/style.css">
+  <link rel="stylesheet" href="/traveland/assets/css/pages.css">
+  <link rel="stylesheet" href="/traveland/assets/css/cmsik.css">
+  <% if (settings.accent_color && settings.accent_color !== '#EEC41E') { %>
+  <style>
+    :root { --cmsik-accent: <%= settings.accent_color %>; }
+    a, .navbar-nav .nav-item.active > a, .navbar-nav .nav-item:hover > a,
+    .section_title .title span, .slider_content .slider_title span,
+    .single_service .services_content .title, .single_blog .blog_content .blog_title a:hover,
+    .footer_link .link li a:hover, .single_counter span { color: <%= settings.accent_color %> !important; }
+    .main-btn { background-color: <%= settings.accent_color %>; border-color: <%= settings.accent_color %>; }
+    .main-btn:hover { background: #38424D; border-color: #38424D; }
+    .single_service:hover .services_icon i { color: <%= settings.accent_color %>; }
+  </style>
+  <% } %>
+</head>
+<body class="home_page">
+
+  <!-- ===================== HEADER ===================== -->
+  <section class="header_area" id="home">
+    <div class="header_navbar">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg">
+          <a class="navbar-brand" href="/#home">
+            <img src="/<%= settings.logo_url || 'traveland/assets/images/logo.svg' %>" alt="<%= settings.site_name || 'TraveLand' %>">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#siteNav">
+            <span class="toggler-icon"></span><span class="toggler-icon"></span><span class="toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse sub-menu-bar" id="siteNav">
+            <ul class="navbar-nav ml-auto">
+              <% menu.forEach(function(item) { %>
+                <li class="nav-item">
+                  <% if (item.target_section === 'home') { %>
+                    <a class="page-scroll" href="/#home"><%= item.label %></a>
+                  <% } else { %>
+                    <a href="/<%= item.target_section %>"><%= item.label %></a>
+                  <% } %>
+                </li>
+              <% }); %>
+            </ul>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="single_slider bg_cover d-flex align-items-center"
+         style="background-image: url('/<%= (c.home_image && c.home_image.image_url) || 'traveland/assets/images/hero-area.jpg' %>');">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9">
+            <div class="slider_content">
+              <h3 class="slider_title">
+                <%= (c.home_title && c.home_title.label) || '' %> <span><%= (c.home_title && c.home_title.text) || 'TraveLand' %></span>
+              </h3>
+              <p><%- (c.home_subtitle && c.home_subtitle.text) || '' %></p>
+              <a class="main-btn" href="<%= (c.home_button_link && c.home_button_link.text) || '#services' %>">
+                <%= (c.home_button_text && c.home_button_text.text) || 'Get Started' %>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" class="about_area pt-120 pb-130">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <div class="about_image wow fadeInLeft mt-50" data-wow-duration="1.3s" data-wow-delay="0.2s">
+            <img src="/<%= (c.about_image && c.about_image.image_url) || 'traveland/assets/images/about_image.jpg' %>" alt="About TraveLand">
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="about_content mt-45 wow fadeInRight" data-wow-duration="1.3s" data-wow-delay="0.4s">
+            <div class="section_title">
+              <h5 class="sub_title"><%= (c.about_eyebrow && c.about_eyebrow.label) || 'About Us' %></h5>
+              <h3 class="title"><%- (c.about_title && c.about_title.text) || 'We make every journey <span>meaningful</span>' %></h3>
+            </div>
+            <p><%- (c.about_text_1 && c.about_text_1.text) || '' %></p>
+            <p><%- (c.about_text_2 && c.about_text_2.text) || '' %></p>
+            <a class="main-btn mt-30" href="<%= (c.about_button_link && c.about_button_link.text) || '#services' %>">
+              <%= (c.about_button_text && c.about_button_text.text) || 'Explore packages' %>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- counters -->
+      <div class="about_counter pt-100">
+        <div class="row">
+          <% ['counter_1','counter_2','counter_3','counter_4'].forEach(function(k, i) {
+            const cnt = c[k];
+            if (cnt) { %>
+            <div class="col-lg-3 col-md-6 col-sm-6 <%= i === 2 || i === 3 ? 'mt-30 mt-sm-0' : '' %>">
+              <div class="single_counter counter_<%= i+1 %> d-flex align-items-center wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.<%= i+2 %>s">
+                <div class="counter_content media-body">
+                  <span class="counter"><%= cnt.label %></span>
+                  <p><%= cnt.text %></p>
+                </div>
+              </div>
+            </div>
+          <% } }); %>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section id="services" class="services_area pt-120 pb-130">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="section_title text-center pb-30 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.1s">
+            <h5 class="sub_title"><%= (c.services_eyebrow && c.services_eyebrow.label) || 'Services' %></h5>
+            <h3 class="title"><%- (c.services_title && c.services_title.text) || 'How we plan your <span>journey</span>' %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <%
+          const tiles = comps.filter(function(c){ return c.block_type === 'service_tile'; });
+          tiles.forEach(function(t, i) {
+        %>
+          <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="single_service mt-30 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.<%= i+2 %>s">
+              <div class="services_icon">
+                <i class="<%= t.icon || 'lni lni-bulb' %>"></i>
+              </div>
+              <div class="services_content">
+                <h4 class="title"><%= t.label %></h4>
+                <p><%- t.text %></p>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BLOG ===================== -->
+  <% if (posts.length) { %>
+  <section id="blog" class="blog_area pt-120 pb-130 bg_light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="section_title text-center pb-40 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.1s">
+            <h5 class="sub_title"><%= (c.blog_eyebrow && c.blog_eyebrow.label) || 'Recent Blog Post' %></h5>
+            <h3 class="title"><%- (c.blog_title && c.blog_title.text) || 'Stories from the <span>road</span>' %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <% posts.forEach(function(p, i) { %>
+          <div class="col-lg-<%= i === 0 ? 6 : 3 %> col-md-6">
+            <div class="single_blog mt-30 wow fadeInUp <%= i === 0 ? 'featured' : '' %>" data-wow-duration="1.3s" data-wow-delay="0.<%= i+1 %>s">
+              <div class="blog_image">
+                <img src="/<%= p.image || 'traveland/assets/images/blog-1.jpg' %>" alt="<%= p.title %>">
+              </div>
+              <div class="blog_content">
+                <div class="blog_meta">
+                  <ul>
+                    <li><%= p.author %></li>
+                    <li><%= formatDate(p.published_at) %></li>
+                  </ul>
+                </div>
+                <h4 class="blog_title"><%= p.title %></h4>
+                <p><%- (i === 0 ? p.body.split('\n')[0] : (p.body || '').slice(0, 110) + '…') %></p>
+              </div>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </section>
+  <% } %>
+
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact" class="contact_area pt-120 pb-130">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="section_title text-center pb-30 wow fadeInUp" data-wow-duration="1.3s" data-wow-delay="0.1s">
+            <h5 class="sub_title"><%= (c.contact_eyebrow && c.contact_eyebrow.label) || 'Get in Touch' %></h5>
+            <h3 class="title"><%- (c.contact_title && c.contact_title.text) || 'Plan your <span>next trip</span>' %></h3>
+            <p><%- (c.contact_text && c.contact_text.text) || '' %></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- flash messages -->
+      <% if (flash.success && flash.success.length) { %>
+        <div class="alert alert-success alert-dismissible fade show mx-auto" style="max-width:760px" role="alert">
+          <% flash.success.forEach(m => { %><div><%= m %></div><% }); %>
+          <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+      <% } %>
+      <% if (flash.error && flash.error.length) { %>
+        <div class="alert alert-danger alert-dismissible fade show mx-auto" style="max-width:760px" role="alert">
+          <% flash.error.forEach(m => { %><div><%= m %></div><% }); %>
+          <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+      <% } %>
+      <% if (flash.info && flash.info.length) { %>
+        <div class="alert alert-info alert-dismissible fade show mx-auto" style="max-width:760px" role="alert">
+          <% flash.info.forEach(m => { %><div><%= m %></div><% }); %>
+          <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+      <% } %>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <form action="/contact" method="post" class="contact_form">
+            <input type="hidden" name="source" value="home">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="single_form mt-30">
+                  <input type="text" name="name" placeholder="Imię i nazwisko" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="single_form mt-30">
+                  <input type="tel" name="phone" placeholder="Telefon">
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="single_form mt-30">
+                  <input type="email" name="email" placeholder="E-mail" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="single_form mt-30">
+                  <select name="trip" class="wide">
+                    <option value="" selected>Wybierz wycieczkę</option>
+                    <option value="city">City break</option>
+                    <option value="beach">Beach holiday</option>
+                    <option value="mountain">Mountain trip</option>
+                    <option value="custom">Custom plan</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="single_form mt-30">
+                  <textarea name="body" rows="5" placeholder="Wiadomość" required></textarea>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="single_form mt-30 text-center">
+                  <button type="submit" class="main-btn">Wyślij wiadomość</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="footer" class="footer_area">
+    <div class="footer_widget pt-80 pb-80">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-md-6">
+            <div class="footer_about mt-30">
+              <a href="/#home"><img src="/<%= settings.logo_url || 'traveland/assets/images/logo.svg' %>" alt="<%= settings.site_name || 'TraveLand' %>"></a>
+              <p class="mt-20"><%- settings.footer_text || '' %></p>
+              <ul class="social">
+                <% if (settings.social_facebook)  { %><li><a class="social_1" href="<%= settings.social_facebook %>" target="_blank" rel="noopener"><i class="lni lni-facebook-filled"></i></a></li><% } %>
+                <% if (settings.social_twitter)   { %><li><a class="social_2" href="<%= settings.social_twitter %>"  target="_blank" rel="noopener"><i class="lni lni-twitter-original"></i></a></li><% } %>
+                <% if (settings.social_instagram) { %><li><a class="social_3" href="<%= settings.social_instagram %>" target="_blank" rel="noopener"><i class="lni lni-instagram-original"></i></a></li><% } %>
+                <% if (settings.social_youtube)   { %><li><a class="social_4" href="<%= settings.social_youtube %>"   target="_blank" rel="noopener"><i class="lni lni-youtube"></i></a></li><% } %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer_link mt-30">
+              <h5 class="footer_title">Sekcje</h5>
+              <ul class="link">
+                <% menu.forEach(function(item) { %>
+                  <li>
+                    <% if (item.target_section === 'home') { %>
+                      <a href="/#home"><%= item.label %></a>
+                    <% } else { %>
+                      <a href="/<%= item.target_section %>"><%= item.label %></a>
+                    <% } %>
+                  </li>
+                <% }); %>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6">
+            <div class="footer_subscribe mt-30">
+              <h5 class="footer_title">Newsletter</h5>
+              <p>Zapisz się, aby otrzymywać pomysły na podróże.</p>
+              <form action="/newsletter" method="post" class="subscribe_form mt-15">
+                <input type="hidden" name="source" value="home">
+                <input type="email" name="email" placeholder="Twój e-mail" required>
+                <button type="submit"><i class="lni lni-arrow-right"></i></button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer_copyright text-center pt-30 pb-10">
+        <p class="small text-muted">
+          <%= settings.footer_copyright || '' %>
+        </p>
+        <p class="small">
+          <a href="/p/privacy-policy">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" class="back-to-top"><i class="lni lni-arrow-up"></i></a>
+
+  <script src="/traveland/assets/js/vendor/jquery-1.12.4.min.js"></script>
+  <script src="/traveland/assets/js/popper.min.js"></script>
+  <script src="/traveland/assets/js/bootstrap.4.5.2.min.js"></script>
+  <script src="/traveland/assets/js/waypoints.min.js"></script>
+  <script src="/traveland/assets/js/jquery.counterup.min.js"></script>
+  <script src="/traveland/assets/js/jquery.easing.min.js"></script>
+  <script src="/traveland/assets/js/jquery.nice-select.min.js"></script>
+  <script src="/traveland/assets/js/wow.min.js"></script>
+  <script src="/traveland/assets/js/scrolling-nav.js"></script>
+  <script src="/traveland/assets/js/main.js"></script>
+</body>
+</html>
